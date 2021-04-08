@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import ChatsItem from '../components/chatsItem'
-
-import ConversationData from '../mockData/conversations.json'
+import { conversationCTX } from '../context/conversations';
 
 export default function Chats() {
+  const ctx = useContext(conversationCTX);
   return (
     <div>
-      {ConversationData.map(conversation => (
+      {ctx.conversations.map(conversation => (
         <ChatsItem
           key={conversation._id}
           conversation={conversation} />
       ))}
+      {console.log(ctx)}
     </div>
   )
 }
