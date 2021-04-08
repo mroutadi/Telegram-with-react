@@ -7,26 +7,42 @@ export default function Conversation() {
   const url_parameters = useParams();
   const { conversations, setConversations } = useContext(Context);
   const [conversation, setConversation] = useState(conversations.filter(conversation => conversation.sent_by.username === url_parameters.username)[0])
+  const [draftMessage, setDraftMessage] = useState(conversation.draft_message)
 
   useEffect(() => {
     setConversation(conversations.filter(conversation => conversation.sent_by.username === url_parameters.username)[0])
   }, [conversations])
 
+  useEffect(() => {
+    setDraftMessage(conversation.draftMessage)
+  }, [conversation.draft_message])
+
   const handleSendMessage = () => {
-    let Conversations = conversations;
+    let Conversations = [...conversations];
     for (let index = 0; index < Conversations.length; index++) {
       if (Conversations[index].sent_by.username === url_parameters.username) {
         Conversations[index].messages.push({
           content: conversation.draft_message,
           read: false,
           sent_by_me: true,
-          sent_at: new Date()
+          sent_at: (new Date()).toString()
         })
+        Conversations[index].draft_message = '';
+        setDraftMessage('')
       }
     }
     setConversations(Conversations)
   }
 
+  const handleDraftMessageChange = (e) => {
+    let Conversations = [...conversations];
+    for (let index = 0; index < Conversations.length; index++) {
+      if (Conversations[index].sent_by.username === url_parameters.username) {
+        Conversations[index].draft_message = e.target.value;
+      }
+    }
+    setConversations(Conversations)
+  }
   return (
     <div>
       <div>UserInfo</div>
@@ -35,8 +51,8 @@ export default function Conversation() {
         <textarea
           name="messageInput"
           placeholder="Write something ..."
-          value={conversation ? conversation.draft_message : ''}
-          onChange={e => console.log(e.target.value)}>
+          value={draftMessage}
+          onChange={handleDraftMessageChange}>
 
         </textarea>
         <button onClick={handleSendMessage}>
