@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import ChatBubble from '../components/chatBubble'
 import { Context } from '../context';
+import ReplyMaker from '../utils/replyMaker'
 
 export default function Conversation() {
   const url_parameters = useParams();
@@ -25,6 +26,26 @@ export default function Conversation() {
           content: conversation.draft_message,
           read: false,
           sent_by_me: true,
+          sent_at: (new Date()).toString()
+        })
+        Conversations[index].draft_message = '';
+        setDraftMessage('')
+        setTimeout(() => {
+          handleReceiveMessage()
+        }, 2000);
+      }
+    }
+    setConversations(Conversations)
+  }
+
+  const handleReceiveMessage = () => {
+    let Conversations = [...conversations];
+    for (let index = 0; index < Conversations.length; index++) {
+      if (Conversations[index].sent_by.username === url_parameters.username) {
+        Conversations[index].messages.push({
+          content: ReplyMaker(),
+          read: false,
+          sent_by_me: false,
           sent_at: (new Date()).toString()
         })
         Conversations[index].draft_message = '';
