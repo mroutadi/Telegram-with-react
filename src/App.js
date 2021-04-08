@@ -3,19 +3,19 @@ import { BrowserRouter as Router, Switch, Route, Link, useParams } from "react-r
 import Chats from './pages/chats'
 import Conversation from './pages/conversation'
 import Contacts from './pages/contacts'
-import { ConversationContextProvider } from './context/conversations';
+import { ContextProvider } from './context';
 
 function App() {
   return (
-    <ConversationContextProvider>
+    <ContextProvider>
       <Router>
         <div className="App">
           <Switch>
-            <Route path="/:username">
-              <Conversation />
-            </Route>
             <Route path="/contacts">
               <Contacts />
+            </Route>
+            <Route path="/:username">
+              <Conversation />
             </Route>
             <Route path="/">
               <Chats />
@@ -23,7 +23,7 @@ function App() {
           </Switch>
         </div>
       </Router>
-    </ConversationContextProvider>
+    </ContextProvider>
   );
 }
 

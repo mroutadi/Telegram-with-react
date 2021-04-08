@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Context } from '../context';
+import ContactItem from '../components/contactItem'
 
 export default function Contacts() {
+  const ctx = useContext(Context);
   return (
     <div>
-      this is Contacts page
+      {ctx.contacts.map(contact => (
+        <ContactItem
+          key={contact._id}
+          contact={contact} />
+      ))}
     </div>
   )
 }

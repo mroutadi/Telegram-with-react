@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import ChatsItem from '../components/chatsItem'
-import { conversationCTX } from '../context/conversations';
+import { Context } from '../context';
 
 export default function Chats() {
-  const ctx = useContext(conversationCTX);
+  const ctx = useContext(Context);
   return (
     <div>
       {ctx.conversations.map(conversation => (

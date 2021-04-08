@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import ChatBubble from '../components/chatBubble'
-import { conversationCTX } from '../context/conversations';
+import { Context } from '../context';
 
 export default function Conversation() {
   const url_parameters = useParams();
-  const { conversations, setConversations } = useContext(conversationCTX);
+  const { conversations, setConversations } = useContext(Context);
   const [conversation, setConversation] = useState(conversations.filter(conversation => conversation.sent_by.username === url_parameters.username)[0])
 
   useEffect(() => {
