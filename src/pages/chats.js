@@ -11,7 +11,6 @@ export default function Chats() {
           key={conversation._id}
           conversation={conversation} />
       ))}
-      {console.log(ctx)}
     </div>
   )
 }
