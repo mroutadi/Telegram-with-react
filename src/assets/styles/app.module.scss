@@ -1,3 +1,4 @@
+@import "../../assets/styles/_variables.scss";
 .chatsAndConversation {
 	width: 100%;
 	height: 100%;
@@ -6,5 +7,23 @@
 
 	.conversation {
 		width: 100%;
+	}
+}
+.newMessage {
+	position: absolute;
+	right: 25px;
+	bottom: 25px;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-color: $SECONDARY_COLOR;
+	box-shadow: 0 0 10px -5px $TEXT_COLOR;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	svg {
+		fill: $BACKGROUND_COLOR;
+		position: relative;
 	}
 }
