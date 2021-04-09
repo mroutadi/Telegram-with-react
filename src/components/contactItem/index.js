@@ -26,7 +26,7 @@ export default function ContactItem(props) {
         }</div>
         <div className={styles.nameAndLastseen}>
           <div className={styles.userInfo}>{contact.first_name} {contact.last_name}</div>
-          <div className={styles.lastSeen}>{LastSeen(last_seen)}</div>
+          <div className={styles.lastSeen}>last seen {LastSeen(last_seen)}</div>
         </div>
       </div>
     </React.Fragment >

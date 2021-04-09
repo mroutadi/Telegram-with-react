@@ -19,9 +19,9 @@ export default function UserModal(props) {
         }</div>
         <div className={styles.nameAndLastseen}>
           <div className={styles.userInfo}>{contact.first_name} {contact.last_name}</div>
-          <div className={styles.lastSeen}>{LastSeen(last_seen)}</div>
+          <div className={styles.lastSeen}>last seen {LastSeen(last_seen)}</div>
         </div>
-        <div className={styles.userIcon}>{me ? <AddAPhotoIcon /> : <Link to={`/${contact.username}`} replace ><ChatIcon /></Link>}</div>
+        {me ? <div className={styles.userIcon}><AddAPhotoIcon /></div> : <Link to={`/${contact.username}`} replace ><div className={styles.userIcon}><ChatIcon /></div></Link>}
       </div>
       <div className={styles.userAccount}>
         <span className={styles.userAccountIcon}>Account</span>

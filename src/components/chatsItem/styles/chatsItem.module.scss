@@ -55,5 +55,11 @@
 		text-align: right;
 		font-size: 0.85em;
 		color: $LIGHT_TEXT_COLOR;
+		display: flex;
+		justify-content: right;
+		svg {
+			font-size: 1.4em;
+			fill: $SECONDARY_COLOR;
+		}
 	}
 }

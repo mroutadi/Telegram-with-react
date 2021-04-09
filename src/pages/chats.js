@@ -9,8 +9,10 @@ import CreateIcon from '@material-ui/icons/Create';
 export default function Chats(props) {
   const ctx = useContext(Context);
   const getConversation = () => {
-    if (ctx.conversations.lenght > 1) {
-      return ctx.conversations.sort((a, b) =>
+    if (ctx.conversations.length > 1) {
+      return ctx.conversations.filter(conversation => {
+        return conversation.messages.length > 0
+      }).sort((a, b) =>
         moment(a.messages[a.messages.length - 1].sent_at).isBefore(moment(b.messages[b.messages.length - 1].sent_at)))
     } else return ctx.conversations
   }
