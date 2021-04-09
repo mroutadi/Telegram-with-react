@@ -1,13 +1,13 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
+import moment from 'moment'
 import { useParams } from 'react-router-dom';
 import ChatBubble from '../components/chatBubble'
 import { Context } from '../context';
-import ReplyMaker from '../utils/replyMaker'
 
 export default function Conversation() {
 
   const url_parameters = useParams();
-  const { conversations, setConversations, contacts } = useContext(Context);
+  const { conversations, setConversations, contacts, handleReceiveMessage } = useContext(Context);
 
   const getConversation = () => {
     let Conversation = conversations.filter(conversation => conversation.sent_by.username === url_parameters.username)
@@ -31,57 +31,46 @@ export default function Conversation() {
 
   const [conversation, setConversation] = useState(getConversation())
   const [draftMessage, setDraftMessage] = useState(conversation.draft_message)
-
+  const draftMessageRef = useRef(draftMessage);
 
   useEffect(() => {
-    setDraftMessage(conversation.draftMessage)
-  }, [conversation.draft_message])
+    return () => {
+      saveDraftMessage()
+    }
+  }, [])
 
   const handleSendMessage = () => {
     let Conversations = [...conversations];
     for (let index = 0; index < Conversations.length; index++) {
       if (Conversations[index].sent_by.username === url_parameters.username) {
         Conversations[index].messages.push({
-          content: conversation.draft_message,
+          content: draftMessageRef.current,
           read: false,
           sent_by_me: true,
-          sent_at: (new Date()).toString()
+          sent_at: `${moment()}`
         })
         Conversations[index].draft_message = '';
+        draftMessageRef.current = "";
         setDraftMessage('')
-        setTimeout(() => {
-          handleReceiveMessage()
-        }, 2000);
+        handleReceiveMessage(url_parameters.username)
       }
     }
     setConversations(Conversations)
   }
 
-  const handleReceiveMessage = () => {
+  const saveDraftMessage = () => {
     let Conversations = [...conversations];
     for (let index = 0; index < Conversations.length; index++) {
       if (Conversations[index].sent_by.username === url_parameters.username) {
-        Conversations[index].messages.push({
-          content: ReplyMaker(),
-          read: false,
-          sent_by_me: false,
-          sent_at: (new Date()).toString()
-        })
-        Conversations[index].draft_message = '';
-        setDraftMessage('')
+        Conversations[index].draft_message = draftMessageRef.current;
       }
     }
     setConversations(Conversations)
   }
 
   const handleDraftMessageChange = (e) => {
-    let Conversations = [...conversations];
-    for (let index = 0; index < Conversations.length; index++) {
-      if (Conversations[index].sent_by.username === url_parameters.username) {
-        Conversations[index].draft_message = e.target.value;
-      }
-    }
-    setConversations(Conversations)
+    draftMessageRef.current = e.target.value;
+    setDraftMessage(e.target.value)
   }
   return (
     conversation ?

@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import moment from 'moment'
 import ChatsItem from '../components/chatsItem'
 import { Context } from '../context';
+import { Link } from 'react-router-dom'
 
 export default function Chats() {
   const ctx = useContext(Context);
@@ -10,6 +11,7 @@ export default function Chats() {
   ))
   return (
     <div>
+      <Link to="/contacts">Contacts</Link>
       {conversations.map(conversation => (
         <ChatsItem
           key={conversation._id}
