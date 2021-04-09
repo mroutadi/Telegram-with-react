@@ -5,14 +5,33 @@ import { Context } from '../context';
 import ReplyMaker from '../utils/replyMaker'
 
 export default function Conversation() {
+
   const url_parameters = useParams();
-  const { conversations, setConversations } = useContext(Context);
-  const [conversation, setConversation] = useState(conversations.filter(conversation => conversation.sent_by.username === url_parameters.username)[0])
+  const { conversations, setConversations, contacts } = useContext(Context);
+
+  const getConversation = () => {
+    let Conversation = conversations.filter(conversation => conversation.sent_by.username === url_parameters.username)
+    if (Conversation.length === 0) {
+      let Conversations = conversations;
+      let user = contacts.filter(contact => contact.username === url_parameters.username);
+      if (user.length === 0) {
+        console.log("That's so Bad");
+      } else {
+        Conversations.push({
+          draft_message: "",
+          messages: [],
+          sent_by: user[0]
+        })
+        return Conversations[Conversations.length - 1]
+      }
+    } else {
+      return Conversation[0]
+    }
+  }
+
+  const [conversation, setConversation] = useState(getConversation())
   const [draftMessage, setDraftMessage] = useState(conversation.draft_message)
 
-  useEffect(() => {
-    setConversation(conversations.filter(conversation => conversation.sent_by.username === url_parameters.username)[0])
-  }, [conversations])
 
   useEffect(() => {
     setDraftMessage(conversation.draftMessage)
