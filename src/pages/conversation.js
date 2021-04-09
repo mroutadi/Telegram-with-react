@@ -38,7 +38,6 @@ export default function Conversation(props) {
   const chatbarRef = useRef();
 
   useEffect(() => {
-    console.log(chatbarRef);
     return () => {
       saveDraftMessage()
     }
@@ -91,10 +90,18 @@ export default function Conversation(props) {
     draftMessageRef.current = value;
     setDraftMessage(value)
   }
+
+  const handleDeleteChat = (id) => {
+    let Conversations = [...conversations];
+    Conversations = Conversations.filter(conversation => {
+      return conversation.sent_by._id !== id;
+    })
+    setConversations(Conversations)
+  }
   return (
     conversation ?
       <div className={styles.conversation}>
-        <UserHeader contact={conversation.sent_by} />
+        <UserHeader contact={conversation.sent_by} handleDeleteChat={handleDeleteChat} />
         <div className={styles.conversationsPart} ref={chatbarRef}>
           {conversation.messages.map(msg => <ChatBubble key={msg._id} {...msg} handleDeleteConversation={handleDeleteConversation} />)}
         </div>

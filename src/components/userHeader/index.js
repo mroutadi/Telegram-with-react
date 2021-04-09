@@ -7,14 +7,43 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useHistory } from 'react-router-dom'
 import UserModal from '../userProfile'
 import Modal from '@material-ui/core/Modal';
+import { Popover } from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete';
 
 export default function UserHeader(props) {
-  const { contact } = props
+  const { contact, handleDeleteChat } = props
   const last_seen = moment(contact.last_seen);
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const history = useHistory()
+  const [PopoverIsOpen, setPopoverIsOpen] = useState(false)
+  const [anchorEl, setAnchorEl] = useState(null)
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
+    setPopoverIsOpen(true)
+  }
+  const handleDelete = () => {
+    handleDeleteChat(contact._id)
+    history.goBack();
+  }
   return (
     <React.Fragment>
+      <Popover
+        open={PopoverIsOpen}
+        anchorEl={anchorEl}
+        onClose={() => setPopoverIsOpen(false)}
+        anchorOrigin={{
+          vertical: 'center',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <div className={styles.Popover}>
+          <button className={styles.Button} onClick={handleDelete}><DeleteIcon />Delete Conversation</button>
+        </div>
+      </Popover>
       <Modal
         open={modalIsOpen}
         onClose={() => setModalIsOpen(false)}
@@ -34,7 +63,7 @@ export default function UserHeader(props) {
             <div className={styles.lastSeen}>last seen {LastSeen(last_seen)}</div>
           </div>
         </div>
-        <button className={styles.Button}><MoreVertIcon /></button>
+        <button className={styles.Button} onClick={handleClick}><MoreVertIcon /></button>
       </div>
     </React.Fragment>
   )

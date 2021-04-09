@@ -12,10 +12,8 @@ export default function ChatBubble(props) {
   const { content, sent_at, sent_by_me, read, key, _id, handleDeleteConversation } = props;
   const [PopoverIsOpen, setPopoverIsOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
-  const [chatId, setChatId] = useState(null)
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
-    setChatId(_id);
     setPopoverIsOpen(true)
   }
   const handleDelete = () => {
