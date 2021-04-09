@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import ChatBubble from '../components/chatBubble'
 import { Context } from '../context';
 
-export default function Conversation() {
+export default function Conversation(props) {
 
   const url_parameters = useParams();
   const { conversations, setConversations, contacts, handleReceiveMessage } = useContext(Context);
@@ -74,7 +74,7 @@ export default function Conversation() {
   }
   return (
     conversation ?
-      <div>
+      <div className={props.className}>
         <div>UserInfo</div>
         <div>{conversation.messages.map(msg => <ChatBubble key={msg._id} {...msg} />)}</div>
         <div>

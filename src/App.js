@@ -4,12 +4,13 @@ import Chats from './pages/chats'
 import Conversation from './pages/conversation'
 import Contacts from './pages/contacts'
 import { ContextProvider } from './context';
+import styles from './assets/styles/app.module.scss'
 
 function App() {
   const [mobileSize, setMobileSize] = useState(null)
   useEffect(() => {
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 537) {
+      if (window.innerWidth < 537) {
         setMobileSize(false);
       } else setMobileSize(true)
     })
@@ -23,8 +24,11 @@ function App() {
               <Contacts />
             </Route>
             <Route path="/:username">
-              {mobileSize && <Chats />}
-              <Conversation />
+              <div className={styles.chatsAndConversation}>
+                {//mobileSize && <Chats className={styles.chats} />
+                }
+                <Conversation className={styles.conversation} />
+              </div>
             </Route>
             <Route path="/">
               <Chats />
