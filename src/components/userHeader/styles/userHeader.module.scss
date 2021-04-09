@@ -14,6 +14,9 @@
 	.userContainer {
 		flex: 1;
 		display: flex;
+		&:hover {
+			cursor: pointer;
+		}
 		.imageContainer {
 			width: 50px;
 			margin: 0 5px;

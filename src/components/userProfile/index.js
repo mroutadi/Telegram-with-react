@@ -7,7 +7,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 
 export default function UserModal(props) {
-  const { contact, me } = props
+  const { contact, me, inUserChat } = props
   const last_seen = moment(contact.last_seen);
   return (
     <div className={styles.user}>
@@ -21,7 +21,7 @@ export default function UserModal(props) {
           <div className={styles.userInfo}>{contact.first_name} {contact.last_name}</div>
           <div className={styles.lastSeen}>last seen {LastSeen(last_seen)}</div>
         </div>
-        {me ? <div className={styles.userIcon}><AddAPhotoIcon /></div> : <Link to={`/${contact.username}`} replace ><div className={styles.userIcon}><ChatIcon /></div></Link>}
+        {me ? <div className={styles.userIcon}><AddAPhotoIcon /></div> : !inUserChat ? <Link to={`/${contact.username}`} replace ><div className={styles.userIcon}><ChatIcon /></div></Link> : ''}
       </div>
       <div className={styles.userAccount}>
         <span className={styles.userAccountIcon}>Account</span>
