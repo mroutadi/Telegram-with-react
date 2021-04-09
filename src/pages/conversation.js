@@ -15,7 +15,7 @@ export default function Conversation() {
       let Conversations = conversations;
       let user = contacts.filter(contact => contact.username === url_parameters.username);
       if (user.length === 0) {
-        console.log("That's so Bad");
+        return false;
       } else {
         Conversations.push({
           draft_message: "",
@@ -84,21 +84,24 @@ export default function Conversation() {
     setConversations(Conversations)
   }
   return (
-    <div>
-      <div>UserInfo</div>
-      <div>{conversation.messages.map(msg => <ChatBubble key={msg._id} {...msg} />)}</div>
+    conversation ?
       <div>
-        <textarea
-          name="messageInput"
-          placeholder="Write something ..."
-          value={draftMessage}
-          onChange={handleDraftMessageChange}>
-
-        </textarea>
-        <button onClick={handleSendMessage}>
-          Send
+        <div>UserInfo</div>
+        <div>{conversation.messages.map(msg => <ChatBubble key={msg._id} {...msg} />)}</div>
+        <div>
+          <textarea
+            name="messageInput"
+            placeholder="Write something ..."
+            value={draftMessage}
+            onChange={handleDraftMessageChange}>
+          </textarea>
+          <button onClick={handleSendMessage}>
+            Send
         </button>
+        </div>
+      </div> :
+      <div>
+        <div>No access To message this user</div>
       </div>
-    </div >
   )
 }
