@@ -38,11 +38,14 @@ export default function Conversation(props) {
 
   useEffect(() => {
     console.log(chatbarRef);
-    chatbarRef.current.scrollTop = chatbarRef.current.scrollHeight;
     return () => {
       saveDraftMessage()
     }
   }, [])
+
+  useEffect(() => {
+    chatbarRef.current.scrollTop = chatbarRef.current.scrollHeight;
+  }, [conversations])
 
   const handleSendMessage = () => {
     let Conversations = [...conversations];
