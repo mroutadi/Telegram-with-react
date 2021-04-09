@@ -4,6 +4,9 @@ import { Popover } from '@material-ui/core'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import DeleteIcon from '@material-ui/icons/Delete';
+import DoneIcon from '@material-ui/icons/Done';
+import DoneAllIcon from '@material-ui/icons/DoneAll';
+import moment from 'moment'
 
 export default function ChatBubble(props) {
   const { content, sent_at, sent_by_me, read, key, _id, handleDeleteConversation } = props;
@@ -50,8 +53,8 @@ export default function ChatBubble(props) {
       >
         <div className={styles.text}>{content}</div>
         <div className={styles.info}>
-          <div className={styles.status}>{read ? "read" : "unread"}</div>
-          <div className={styles.time}>{sent_at}</div>
+          {sent_by_me && <div className={styles.status}>{read ? <DoneAllIcon /> : <DoneIcon />}</div>}
+          <div className={styles.time}>{moment(sent_at).format("hh:mm")}</div>
         </div>
       </div>
     </React.Fragment>
