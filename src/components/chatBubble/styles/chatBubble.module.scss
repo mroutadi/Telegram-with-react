@@ -1,0 +1,45 @@
+@import "../../../assets/styles/_variables.scss";
+.message {
+	padding: 8px 16px;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	row-gap: 8px;
+	width: max-content;
+	min-width: 15%;
+	max-width: 70%;
+	margin: 5px 0px;
+	.text {
+		font-size: 1rem;
+	}
+
+	.info {
+		display: flex;
+		column-gap: 8px;
+		align-items: center;
+		.time {
+			font-size: 0.8rem;
+			opacity: 80%;
+		}
+
+		.status {
+			font-size: 0.8rem;
+			opacity: 80%;
+		}
+	}
+}
+
+.myMessage {
+	background-color: $PRIMARY_COLOR;
+	color: $BACKGROUND_COLOR;
+	float: right;
+	.info {
+		justify-content: right;
+	}
+}
+
+.theirMessage {
+	background-color: $HOVER_COLOR;
+	color: $TEXT_COLOR;
+	float: left;
+}

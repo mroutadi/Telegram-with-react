@@ -1,0 +1,35 @@
+.root {
+	display: flex;
+	column-gap: 12px;
+	align-items: center;
+}
+
+.input {
+	flex-grow: 1;
+}
+
+.button {
+	background-color: #4062b9;
+	color: #fff;
+	width: 44px;
+	height: 44px;
+}
+
+.button:hover {
+	background-color: #4062b9cc;
+}
+.searchInput {
+	width: calc(100% - 32px);
+	background-color: #e7e7e7;
+	outline: none;
+	padding: 12px 16px;
+	font-size: 0.97rem;
+	color: #333;
+	border: none;
+	border-radius: 4px;
+	transition: 200ms;
+}
+
+.searchInput:focus {
+	background-color: #fafafa;
+}

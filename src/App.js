@@ -27,7 +27,7 @@ function App() {
               <div className={styles.chatsAndConversation}>
                 {//mobileSize && <Chats className={styles.chats} />
                 }
-                <Conversation className={styles.conversation} />
+                <Conversation />
               </div>
             </Route>
             <Route path="/">

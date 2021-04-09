@@ -3,6 +3,8 @@ import moment from 'moment'
 import { useParams } from 'react-router-dom';
 import ChatBubble from '../components/chatBubble'
 import { Context } from '../context';
+import MessageInput from '../components/messageInput'
+import styles from '../assets/styles/conversation.module.scss'
 
 export default function Conversation(props) {
 
@@ -32,8 +34,11 @@ export default function Conversation(props) {
   const [conversation, setConversation] = useState(getConversation())
   const [draftMessage, setDraftMessage] = useState(conversation.draft_message)
   const draftMessageRef = useRef(draftMessage);
+  const chatbarRef = useRef();
 
   useEffect(() => {
+    console.log(chatbarRef);
+    chatbarRef.current.scrollTop = chatbarRef.current.scrollHeight;
     return () => {
       saveDraftMessage()
     }
@@ -68,25 +73,20 @@ export default function Conversation(props) {
     setConversations(Conversations)
   }
 
-  const handleDraftMessageChange = (e) => {
-    draftMessageRef.current = e.target.value;
-    setDraftMessage(e.target.value)
+  const handleDraftMessageChange = (value) => {
+    draftMessageRef.current = value;
+    setDraftMessage(value)
   }
   return (
     conversation ?
-      <div className={props.className}>
-        <div>UserInfo</div>
-        <div>{conversation.messages.map(msg => <ChatBubble key={msg._id} {...msg} />)}</div>
-        <div>
-          <textarea
-            name="messageInput"
-            placeholder="Write something ..."
+      <div className={styles.conversation}>
+        <div className={styles.userInfo}>UserInfo</div>
+        <div className={styles.conversationsPart} ref={chatbarRef}>{conversation.messages.map(msg => <ChatBubble key={msg._id} {...msg} />)}</div>
+        <div className={styles.messageInput}>
+          <MessageInput
             value={draftMessage}
-            onChange={handleDraftMessageChange}>
-          </textarea>
-          <button onClick={handleSendMessage}>
-            Send
-        </button>
+            onChange={handleDraftMessageChange}
+            btnOnClick={handleSendMessage} />
         </div>
       </div> :
       <div>
