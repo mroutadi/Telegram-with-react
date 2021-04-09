@@ -21,7 +21,7 @@ export default function UserModal(props) {
           <div className={styles.userInfo}>{contact.first_name} {contact.last_name}</div>
           <div className={styles.lastSeen}>{LastSeen(last_seen)}</div>
         </div>
-        <div className={styles.userIcon}>{me ? <AddAPhotoIcon /> : <Link to={`/${contact.username}`}><ChatIcon /></Link>}</div>
+        <div className={styles.userIcon}>{me ? <AddAPhotoIcon /> : <Link to={`/${contact.username}`} replace ><ChatIcon /></Link>}</div>
       </div>
       <div className={styles.userAccount}>
         <span className={styles.userAccountIcon}>Account</span>
