@@ -76,6 +76,16 @@ export default function Conversation(props) {
     setConversations(Conversations)
   }
 
+  const handleDeleteConversation = (id) => {
+    let Conversations = [...conversations];
+    for (let index = 0; index < Conversations.length; index++) {
+      if (Conversations[index].sent_by.username === url_parameters.username) {
+        Conversations[index].messages = Conversations[index].messages.filter(msg => msg._id !== id)
+      }
+    }
+    setConversations(Conversations)
+  }
+
   const handleDraftMessageChange = (value) => {
     draftMessageRef.current = value;
     setDraftMessage(value)
@@ -84,7 +94,9 @@ export default function Conversation(props) {
     conversation ?
       <div className={styles.conversation}>
         <div className={styles.userInfo}>UserInfo</div>
-        <div className={styles.conversationsPart} ref={chatbarRef}>{conversation.messages.map(msg => <ChatBubble key={msg._id} {...msg} />)}</div>
+        <div className={styles.conversationsPart} ref={chatbarRef}>
+          {conversation.messages.map(msg => <ChatBubble key={msg._id} {...msg} handleDeleteConversation={handleDeleteConversation} />)}
+        </div>
         <div className={styles.messageInput}>
           <MessageInput
             value={draftMessage}

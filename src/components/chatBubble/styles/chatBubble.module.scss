@@ -43,3 +43,28 @@
 	color: $TEXT_COLOR;
 	float: left;
 }
+
+.Popover {
+	width: 200px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-radius: 10px;
+	.Button {
+		background-color: $BACKGROUND_COLOR;
+		height: 50px;
+		width: 100%;
+		border: none;
+		display: flex;
+		align-items: center;
+		justify-content: left;
+		&:hover {
+			cursor: pointer;
+			background-color: $HOVER_COLOR;
+		}
+		svg {
+			font-size: 1.5em;
+			margin: 0 5px;
+		}
+	}
+}
