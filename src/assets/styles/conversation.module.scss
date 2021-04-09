@@ -3,8 +3,6 @@
 	display: grid;
 	grid-template-rows: 60px calc(100vh - 110px) 50px;
 
-	.userInfo {
-	}
 	.conversationsPart {
 		overflow-y: scroll;
 		margin: 7.5px;

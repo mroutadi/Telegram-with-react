@@ -1,0 +1,58 @@
+@import "../../../assets/styles/_variables.scss";
+.userInfo {
+	display: flex;
+	padding: 5px;
+	background-color: $PRIMARY_COLOR;
+	.Button {
+		background-color: transparent;
+		border: none;
+		color: $BACKGROUND_COLOR;
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	.userContainer {
+		flex: 1;
+		display: flex;
+		.imageContainer {
+			width: 50px;
+			margin: 0 5px;
+			border-radius: 50%;
+			overflow: hidden;
+			.itemImage {
+				width: 100%;
+				height: 100%;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			.itemNameImg {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.75em;
+			}
+		}
+		.nameAndLastseen {
+			flex: 1;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			width: calc(100% - 200px);
+			.userInfo {
+				font-weight: bold;
+				padding: 0;
+				color: $BACKGROUND_COLOR;
+			}
+			.lastSeen {
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
+				width: 100%;
+				font-size: 0.85em;
+				color: $BACKGROUND_COLOR;
+			}
+		}
+	}
+}

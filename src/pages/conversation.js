@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from 'react'
 import moment from 'moment'
 import { useParams } from 'react-router-dom';
 import ChatBubble from '../components/chatBubble'
+import UserHeader from '../components/userHeader'
 import { Context } from '../context';
 import MessageInput from '../components/messageInput'
 import styles from '../assets/styles/conversation.module.scss'
@@ -93,7 +94,7 @@ export default function Conversation(props) {
   return (
     conversation ?
       <div className={styles.conversation}>
-        <div className={styles.userInfo}>UserInfo</div>
+        <UserHeader contact={conversation.sent_by} />
         <div className={styles.conversationsPart} ref={chatbarRef}>
           {conversation.messages.map(msg => <ChatBubble key={msg._id} {...msg} handleDeleteConversation={handleDeleteConversation} />)}
         </div>
