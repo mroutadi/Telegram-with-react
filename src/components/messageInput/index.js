@@ -1,10 +1,14 @@
 import "./styles/style.scss";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import SendRoundedIcon from "@material-ui/icons/SendRounded";
 import MicRoundedIcon from "@material-ui/icons/MicRounded";
 
 const MessageInput = ({ value, onChange, btnOnClick }) => {
+  const [selfValue, setSelfValue] = useState(value);
+  useEffect(() => {
+    setSelfValue(value)
+  }, [value])
   const handleSubmit = (val) => {
     if (!val) return;
     btnOnClick(val);
@@ -16,14 +20,17 @@ const MessageInput = ({ value, onChange, btnOnClick }) => {
         <input
           className="searchInput"
           type="text"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
+          value={selfValue}
+          onChange={(e) => {
+            onChange(e.target.value)
+            setSelfValue(e.target.value)
+          }}
           placeholder="Write a message..."
         />
       </div>
       <div>
-        <IconButton className="button" onClick={() => handleSubmit(value)}>
-          {value ? <SendRoundedIcon /> : <MicRoundedIcon />}
+        <IconButton className="button" onClick={() => handleSubmit(selfValue)}>
+          {selfValue ? <SendRoundedIcon /> : <MicRoundedIcon />}
         </IconButton>
       </div>
     </div>

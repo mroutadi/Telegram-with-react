@@ -35,11 +35,16 @@ export default function Conversation(props) {
   const [conversation, setConversation] = useState(getConversation())
   const [draftMessage, setDraftMessage] = useState(conversation.draft_message)
   const draftMessageRef = useRef(draftMessage);
+  const draftMessageElementRef = useRef(null);
   const chatbarRef = useRef();
 
   useEffect(() => {
+    if (draftMessageElementRef.current) {
+      draftMessageElementRef.current.value = draftMessage;
+    }
     return () => {
       saveDraftMessage()
+      console.log("called");
     }
   }, [])
 
@@ -59,6 +64,7 @@ export default function Conversation(props) {
         })
         Conversations[index].draft_message = '';
         draftMessageRef.current = "";
+        // draftMessageElementRef.current.reset()
         setDraftMessage('')
         handleReceiveMessage(url_parameters.username)
       }
@@ -67,6 +73,7 @@ export default function Conversation(props) {
   }
 
   const saveDraftMessage = () => {
+    console.log(draftMessageRef.current);
     let Conversations = [...conversations];
     for (let index = 0; index < Conversations.length; index++) {
       if (Conversations[index].sent_by.username === url_parameters.username) {
@@ -88,7 +95,7 @@ export default function Conversation(props) {
 
   const handleDraftMessageChange = (value) => {
     draftMessageRef.current = value;
-    setDraftMessage(value)
+    // setDraftMessage(value)
   }
 
   const handleDeleteChat = (id) => {
@@ -107,6 +114,7 @@ export default function Conversation(props) {
         </div>
         <div className={styles.messageInput}>
           <MessageInput
+            ref={draftMessageElementRef}
             value={draftMessage}
             onChange={handleDraftMessageChange}
             btnOnClick={handleSendMessage} />
