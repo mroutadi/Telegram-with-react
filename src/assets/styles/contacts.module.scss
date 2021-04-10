@@ -1,0 +1,26 @@
+@import "../../assets/styles/_variables.scss";
+.Contacts {
+	display: grid;
+	grid-template-rows: 60px calc(100% - 60px);
+	.Header {
+		background-color: $PRIMARY_COLOR;
+		display: flex;
+		justify-content: space-between;
+		padding: 0 25px;
+		.Title {
+			color: $BACKGROUND_COLOR;
+			font-size: 1.75em;
+			margin: 0;
+			display: flex;
+			align-self: center;
+		}
+		.Button {
+			border: none;
+			background-color: transparent;
+			color: $BACKGROUND_COLOR;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+}
