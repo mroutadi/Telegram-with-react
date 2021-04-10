@@ -21,7 +21,7 @@ export default function ContactItem(props) {
       <div className={styles.contactItem} onClick={() => setModalIsOpen(true)}>
         <div className={styles.imageContainer}>{
           contact.picture[0] ?
-            <img src={contact.picture[0]} className={styles.itemImage} /> :
+            <img src={contact.picture[0]} alt={contact.username} className={styles.itemImage} /> :
             <span className={styles.itemNameImg} >{`${contact.first_name.charAt(0)}${contact.last_name.charAt(0)}`}</span>
         }</div>
         <div className={styles.nameAndLastseen}>

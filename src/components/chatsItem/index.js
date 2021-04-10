@@ -14,7 +14,7 @@ export default function ChatsItem(props) {
       <div className={styles.imageContainer}>
         {
           conversation.sent_by.picture[0] ?
-            <img src={conversation.sent_by.picture[0]} className={styles.itemImage} /> :
+            <img src={conversation.sent_by.picture[0]} alt={conversation.sent_by.username} className={styles.itemImage} /> :
             <span className={styles.itemNameImg} >{`${conversation.sent_by.first_name.charAt(0)}${conversation.sent_by.last_name.charAt(0)}`}</span>
         }
       </div>
@@ -23,7 +23,7 @@ export default function ChatsItem(props) {
         <div className={styles.lastMessage}>{conversation.messages[conversation.messages.length - 1].content}</div>
       </div>
       <div className={styles.timeInfo}>
-        {conversation.messages[conversation.messages.length - 1].read ? <DoneAllIcon /> : <DoneIcon />}{Time(sent_at_time)}
+        {conversation.messages[conversation.messages.length - 1].sent_by_me && (conversation.messages[conversation.messages.length - 1].read ? <DoneAllIcon /> : <DoneIcon />)}{Time(sent_at_time)}
       </div>
     </Link>
   )

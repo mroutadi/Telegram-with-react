@@ -26,7 +26,7 @@ export default function Contacts() {
         }
       }))
     }
-  }, [sortBy])
+  }, [sortBy, contacts])
   return (
     <div>
       {contacts.map(contact => (

@@ -34,22 +34,20 @@ export default function Conversation(props) {
       return Conversation[0]
     }
   }
-
-  const [conversation, setConversation] = useState(getConversation())
+  const conversation = getConversation()
   const [draftMessage, setDraftMessage] = useState(conversation.draft_message)
   const draftMessageRef = useRef(draftMessage);
-  const draftMessageElementRef = useRef(null);
   const chatbarRef = useRef();
 
   useEffect(() => {
     return () => {
       saveDraftMessage()
     }
-  }, [])
+  })
 
   useEffect(() => {
     chatbarRef.current.scrollTop = chatbarRef.current.scrollHeight;
-  }, [conversations])
+  }, [conversations, conversation])
 
   const handleSendMessage = () => {
     let Conversations = [...conversations];

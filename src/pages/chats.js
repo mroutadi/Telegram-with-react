@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import moment from 'moment'
 import ChatsItem from '../components/chatsItem'
 import { Context } from '../context';
@@ -16,11 +16,10 @@ export default function Chats(props) {
         moment(a.messages[a.messages.length - 1].sent_at).isBefore(moment(b.messages[b.messages.length - 1].sent_at)))
     } else return ctx.conversations
   }
-  const [conversations, setConversations] = useState(ctx && getConversation())
   return (
     <React.Fragment>
       <div className={styles.chats} >
-        {conversations.map(conversation => (
+        {getConversation().map(conversation => (
           <ChatsItem
             key={conversation._id}
             conversation={conversation} />
