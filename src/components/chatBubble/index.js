@@ -9,7 +9,7 @@ import DoneAllIcon from '@material-ui/icons/DoneAll';
 import moment from 'moment'
 
 export default function ChatBubble(props) {
-  const { content, sent_at, sent_by_me, read, key, _id, handleDeleteConversation } = props;
+  const { content, sent_at, sent_by_me, read, _id, handleDeleteConversation } = props;
   const [PopoverIsOpen, setPopoverIsOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
   const handleClick = (e) => {
@@ -41,7 +41,7 @@ export default function ChatBubble(props) {
           <button className={styles.Button} onClick={handleDelete}><DeleteIcon />Delete</button>
         </div>
       </Popover>
-      <div key={key}
+      <div
         onClick={handleClick}
         className={
           sent_by_me

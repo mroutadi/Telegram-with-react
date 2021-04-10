@@ -6,6 +6,7 @@ import UserHeader from '../components/userHeader'
 import { Context } from '../context';
 import MessageInput from '../components/messageInput'
 import styles from '../assets/styles/conversation.module.scss'
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Conversation(props) {
 
@@ -23,7 +24,8 @@ export default function Conversation(props) {
         Conversations.push({
           draft_message: "",
           messages: [],
-          sent_by: user[0]
+          sent_by: user[0],
+          _id: uuidv4()
         })
         return Conversations[Conversations.length - 1]
       }
@@ -39,12 +41,8 @@ export default function Conversation(props) {
   const chatbarRef = useRef();
 
   useEffect(() => {
-    if (draftMessageElementRef.current) {
-      draftMessageElementRef.current.value = draftMessage;
-    }
     return () => {
       saveDraftMessage()
-      console.log("called");
     }
   }, [])
 
@@ -60,12 +58,12 @@ export default function Conversation(props) {
           content: draftMessageRef.current,
           read: false,
           sent_by_me: true,
-          sent_at: `${moment()}`
+          sent_at: `${moment()}`,
+          _id: uuidv4()
         })
         Conversations[index].draft_message = '';
         draftMessageRef.current = "";
-        // draftMessageElementRef.current.reset()
-        setDraftMessage('')
+        setDraftMessage(new String())
         handleReceiveMessage(url_parameters.username)
       }
     }
@@ -73,7 +71,6 @@ export default function Conversation(props) {
   }
 
   const saveDraftMessage = () => {
-    console.log(draftMessageRef.current);
     let Conversations = [...conversations];
     for (let index = 0; index < Conversations.length; index++) {
       if (Conversations[index].sent_by.username === url_parameters.username) {
@@ -114,7 +111,6 @@ export default function Conversation(props) {
         </div>
         <div className={styles.messageInput}>
           <MessageInput
-            ref={draftMessageElementRef}
             value={draftMessage}
             onChange={handleDraftMessageChange}
             btnOnClick={handleSendMessage} />
