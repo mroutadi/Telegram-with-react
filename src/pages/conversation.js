@@ -5,6 +5,7 @@ import ChatBubble from '../components/chatBubble'
 import UserHeader from '../components/userHeader'
 import { Context } from '../context';
 import MessageInput from '../components/messageInput'
+import ConversationDate from '../components/conversationDate'
 import styles from '../assets/styles/conversation.module.scss'
 import { v4 as uuidv4 } from 'uuid';
 
@@ -107,7 +108,15 @@ export default function Conversation(props) {
       <div className={styles.conversation}>
         <UserHeader contact={conversation.sent_by} handleDeleteChat={handleDeleteChat} />
         <div className={styles.conversationsPart} ref={chatbarRef}>
-          {conversation.messages.map(msg => <ChatBubble key={msg._id} {...msg} handleDeleteConversation={handleDeleteConversation} />)}
+          {conversation.messages.map((msg, index) =>
+            <React.Fragment>
+              {index === 0 ? <ConversationDate time={msg.sent_at} /> :
+                !moment(conversation.messages[index].sent_at).isSame(moment(conversation.messages[index - 1].sent_at), 'days') ?
+                  <ConversationDate time={msg.sent_at} /> : ''
+              }
+              <ChatBubble key={msg._id} {...msg} handleDeleteConversation={handleDeleteConversation} />
+            </React.Fragment>
+          )}
         </div>
         <div className={styles.messageInput}>
           <MessageInput
@@ -115,7 +124,8 @@ export default function Conversation(props) {
             onChange={handleDraftMessageChange}
             btnOnClick={handleSendMessage} />
         </div>
-      </div> :
+      </div>
+      :
       <div>
         <div>No access To message this user</div>
       </div>

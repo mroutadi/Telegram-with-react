@@ -33,7 +33,7 @@
 .myMessage {
 	background-color: $PRIMARY_COLOR;
 	color: $BACKGROUND_COLOR;
-	float: right;
+	margin-left: auto;
 	.info {
 		justify-content: right;
 	}
@@ -42,7 +42,7 @@
 .theirMessage {
 	background-color: $HOVER_COLOR;
 	color: $TEXT_COLOR;
-	float: left;
+	margin-left: 0;
 }
 
 .Popover {

@@ -4,7 +4,8 @@ import IconButton from "@material-ui/core/IconButton";
 import SendRoundedIcon from "@material-ui/icons/SendRounded";
 import MicRoundedIcon from "@material-ui/icons/MicRounded";
 
-const MessageInput = ({ value, onChange, btnOnClick }) => {
+const MessageInput = (props) => {
+  const { value, onChange, btnOnClick } = props
   const [selfValue, setSelfValue] = useState(value);
   useEffect(() => {
     setSelfValue(value)
